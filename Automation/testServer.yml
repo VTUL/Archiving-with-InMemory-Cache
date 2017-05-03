@@ -1,0 +1,20 @@
+---  
+#- hosts: localhost
+#  connection: local
+#  gather_facts: no    
+#  roles:
+#    - server
+
+- name: another play
+  hosts: localhost
+  tasks:
+    - debug: msg=hello
+    
+- name: Start Client
+  gather_facts: no
+  user: ubuntu
+  hosts: 54.245.178.184
+  become: yes
+  roles:
+    - startClient
+

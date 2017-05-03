@@ -1,0 +1,4 @@
+- Update AWS credentials in ~/.boto and ~/.aws/credentials
+- Make sure all the variables are as per desired in each role
+- Execute `ansible-playbook -i hosts -i ec2.py startWiki.yml --extra-vars "max_ops=200 max_page_cache=400"`
+- If a security group does not exist make sure to run `ansible-playbook -i hosts -i ec2.py createSecurityGroup.yml` first

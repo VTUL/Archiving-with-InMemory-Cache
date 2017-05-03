@@ -1,0 +1,11 @@
+---
+- name: Find RDS endpoint
+  command: aws rds --region "{{ region }}" describe-db-instances --db-instance-identifier "{{ db_name }}"
+  register: rds_facts
+
+- name: debug RDS facts
+  set_fact: endpoint="{{ (rds_facts.stdout|from_json).DBInstances[0].Endpoint.Address }}"
+
+- name: Print endpoint
+  debug:
+    msg: "{{ endpoint }}"

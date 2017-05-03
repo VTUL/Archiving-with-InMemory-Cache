@@ -1,0 +1,18 @@
+---  
+- name: Creating Infrastructure
+  hosts: localhost
+  connection: local  
+  gather_facts: no    
+  roles:
+#   - create_security_group
+#   - client
+#   - server
+#   - database
+   - getEndpointRDS
+
+- name: Preparing Server
+  hosts: tag_class_server
+  remote_user: centos
+  become: yes
+  roles:
+   - startServer

@@ -1,0 +1,80 @@
+---
+- name: get Endpoint from localhost
+  set_fact: endpoint="{{ hostvars[ 'localhost' ].endpoint }}"
+
+- name: Update Endpoint on Server
+  replace:
+     dest: /var/www/html/mediawiki/LocalSettings.php
+     regexp: '\$wgDBserver = .+'
+     replace: '$wgDBserver = "{{ endpoint }}";'
+
+- name: Stop MySql
+  service:
+    name: mysqld
+    state: stopped
+
+- name: Stop Nginx
+  service:
+    name: nginx
+    state: stopped
+
+- name: Start Redis Object Cache
+  service: 
+    name: redisobjectcache
+    state: started
+
+- name: Start Redis Page Cache
+  service:
+    name: redis
+    state: started
+- name: Restart php
+  service:
+    name: php-fpm
+    state: started
+
+- name: Start nginx
+  service:
+    name: nginx
+    state: started
+
+- name: Restart php
+  service:
+    name: php-fpm
+    state: restarted
+
+- name: Start nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: Install Python pip
+  yum:
+    name: python-pip
+    state: present
+
+- name: Install redis module
+  pip:
+    name: redis
+
+- name: Update Page Cache Size
+  redis:
+    command: config
+    name: maxmemory
+    value: "{{ max_page_cache }}"
+
+- name: Update appendonly
+  redis:
+    command: config
+    name: appendonly
+    value: "{{ appendonly }}"
+
+- name: Update append Fsync
+  redis:
+    command: config
+    name: appendfsync
+    value: "{{ appendfsync }}"
+
+- name: Wait for sometime
+  pause:
+    minutes: 5
+

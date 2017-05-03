@@ -1,0 +1,25 @@
+ansible_ssh_private_key_file: ~/.ssh/archival-client.pem
+
+# Which version of WordPress to deploy
+#wp_sha256sum: 73c21224d42156150b948ca645a296a2431f1dd6a19350e0d8a72e465adde56d
+
+# These are the WordPress database settings
+# Set your database password here 
+
+# WordPress settings
+
+# Disable All Updates
+# By default automatic updates are enabled, set this value to true to disable all automatic updates
+auto_up_disable: true
+
+#Define Core Update Level
+#true  = Development, minor, and major updates are all enabled
+#false = Development, minor, and major updates are all disabled
+#minor = Minor updates are enabled, development, and major updates are disabled
+#core_update_level: true 
+
+max_page_cache: 600
+max_execution_time: 600
+max_ops: 300
+appendonly: "no"
+appendfsync: "no"

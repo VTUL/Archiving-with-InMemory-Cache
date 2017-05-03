@@ -1,0 +1,29 @@
+---
+- name: Create mysql RDS instance
+  rds:
+    command: restore
+    instance_name: greekwiki-{{ max_page_cache }}
+    region: "{{ region }}"
+    zone: "{{ zone }}"
+    instance_type: "{{ instance_type }}"
+    snapshot: "{{ snapshot }}"
+    wait: yes
+    wait_timeout: 1200
+    multi_zone: no
+  register: rds
+
+- name: Find Endpoint
+  set_fact: endpoint="{{ rds.instance.endpoint }}"
+
+- name: Print DB info
+  debug:
+    msg: "{{ endpoint }}"
+
+- name: Add the security group
+  rds:
+    command: modify
+    instance_name: greekwiki-{{ max_page_cache }}
+    region: "{{ region }}"
+    wait: yes
+    vpc_security_groups: "{{ security_groups }}"
+

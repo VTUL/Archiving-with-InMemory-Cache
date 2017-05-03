@@ -1,0 +1,9 @@
+---  
+#your region  
+region: us-west-2
+keyname: archival-client
+#your ip address
+allowed_ip: 71.197.6.115/32
+instance_type: r4.2xlarge     
+image: ami-9ef36bfe
+zone: us-west-2b
