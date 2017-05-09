@@ -5,5 +5,5 @@ region: us-west-2
 allowed_ip: 71.197.6.115/32
 instance_type: db.m4.xlarge   
 security_groups: sg-6ab92a11
-snapshot: greekwiki-final-snapshot
+snapshot: greekwiki
 zone: us-west-2b
